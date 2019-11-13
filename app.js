@@ -37,3 +37,27 @@ for (let i = 0; i < 16 * 16; i++) {
     container.appendChild(sqr);
     sqr.setAttribute('class','sqr')
 }
+const squares = document.querySelectorAll('.sqr');
+squares.forEach(sqr => sqr.addEventListener('mouseenter', changeSquareBackground));
+btn.addEventListener('click', changeSquareToOriginal);
+
+function changeSquareBackground(e) {
+    e.target.style.backgroundColor = "#"+((1<<24)*Math.random()|0).toString(16);
+}
+
+function changeSquareToOriginal() {
+    const newGridSize = prompt("Enter New Grid Size");
+    while (container.firstChild) {
+      container.removeChild(container.firstChild);
+    }  
+    for (i = 0;i < (newGridSize*newGridSize);i++) {
+      const square = document.createElement('div');
+      container.appendChild(square);
+      square.setAttribute('class', 'square');
+    }
+    const squares = document.querySelectorAll('.square');
+  squares.forEach(square => square.addEventListener('mouseenter', changeSquareBackground));
+  container.style.gridTemplateColumns = `repeat(${newGridSize}, 1fr)`;
+  container.style.gridTemplateRows = `repeat(${newGridSize}, 1fr)`;
+  container.style.placeContent = 'stretch / stretch';
+}
